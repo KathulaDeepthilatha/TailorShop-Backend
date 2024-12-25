@@ -81,24 +81,16 @@ router.put("/:id", async (req, res) => {
 });
 
 // Delete a customer
-router.delete("/api/customers/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   console.log("Delete request received");
   console.log("ID from params:", req.params.id);
   try {
-    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-      console.log("Invalid ID format");
-      return res.status(400).json({ message: "Invalid ID format" });
-    }
-    const customerId = mongoose.Types.ObjectId(req.params.id);
-    const deletedCustomer = await Customer.findByIdAndDelete(customerId);
+    const deletedCustomer = await Customer.findByIdAndDelete(req.params.id);
     if (!deletedCustomer) {
-      console.log("Customer not found");
       return res.status(404).json({ message: "Customer not found" });
     }
-    console.log("Customer deleted successfully");
-    res.status(200).json({ message: "Customer deleted successfully" });
+    res.status(200).json({ message: "Customer deleted successfully" }); // Send success response
   } catch (error) {
-    console.error("Error during deletion:", error);
     res.status(500).json({ message: "Error deleting customer", error });
   }
 });
