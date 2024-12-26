@@ -1,34 +1,11 @@
-// const express = require("express");
-// const Customer = require("../models/Customer");
-
-// const router = express.Router();
-
-// router.post("/", async (req, res) => {
-//   try {
-//     const customer = new Customer(req.body);
-//     const savedCustomer = await customer.save();
-//     res.status(201).json(savedCustomer);
-//   } catch (err) {
-//     res.status(400).json({ error: err.message });
-//   }
-// });
-
-// router.get("/", async (req, res) => {
-//   try {
-//     const customers = await Customer.find();
-//     res.status(200).json(customers);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
-
-// module.exports = router;
-
-
-
 const express = require("express");
 const router = express.Router();
 const Customer = require("../models/Customer");
+
+
+app.get('/hello', (req, res) => {
+  res.send('Hello World!');
+}); 
 
 // Get all customers
 router.get("/", async (req, res) => {
