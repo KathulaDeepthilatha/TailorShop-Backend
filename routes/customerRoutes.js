@@ -2,10 +2,9 @@ const express = require("express");
 const router = express.Router();
 const Customer = require("../models/Customer");
 
-
-router.get('/hello', (req, res) => {
-  res.send('Hello World!');
-}); 
+router.get("/test", (req, res) => {
+  res.json({ message: "Hello Sai" });
+});
 
 // Get all customers
 router.get("/", async (req, res) => {
