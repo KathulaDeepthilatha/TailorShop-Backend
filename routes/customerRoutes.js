@@ -3,7 +3,7 @@ const router = express.Router();
 const Customer = require("../models/Customer");
 
 
-app.get('/hello', (req, res) => {
+router.get('/hello', (req, res) => {
   res.send('Hello World!');
 }); 
 
