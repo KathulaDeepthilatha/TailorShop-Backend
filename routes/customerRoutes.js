@@ -3,7 +3,7 @@ const router = express.Router();
 const Customer = require("../models/Customer");
 
 router.get("/test", (req, res) => {
-  res.json({ message: "Hello Sai" });
+  res.json({ message: "Hello" });
 });
 
 // Get all customers
@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
 });
 
 // Get a customer by ID
-router.get("/:id", async (req, res) => {
+router.get("/customers/:id", async (req, res) => {
   try {
     const customer = await Customer.findById(req.params.id);
     if (!customer) {
@@ -41,7 +41,7 @@ router.post("/", async (req, res) => {
 });
 
 // Update a customer
-router.put("/:id", async (req, res) => {
+router.put("/customers/:id", async (req, res) => {
   try {
     const updatedCustomer = await Customer.findByIdAndUpdate(req.params.id, req.body, {
       new: true, // Return the updated document
