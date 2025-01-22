@@ -9,7 +9,7 @@ const userRoutes = require("./routes/userRoutes");
 const app = express();
 
 app.use(cors({ 
-  origin: '*',
+  origin: process.env.FRONTEND_URL || '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE'], 
    allowedHeaders: ['Content-Type'] }));
 app.use(bodyParser.json());
@@ -30,9 +30,9 @@ mongoose.connect(mongoURI).then(() => {
 app.use("/api/customers", customerRoutes);
 app.use("/api/users", userRoutes); // Correctly using userRoutes
 
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send({ message: "Something went wrong!" });
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
 });
 
 const PORT = process.env.PORT || 5000;
