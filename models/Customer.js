@@ -33,7 +33,7 @@ const CustomerSchema = new mongoose.Schema({
   timestamps: true,
   validateBeforeSave: true
  });  
- 
+
 // Add a pre-save hook to ensure measurements are numbers
 CustomerSchema.pre('save', function(next) {
   const measurements = this.measurements;
@@ -46,6 +46,3 @@ CustomerSchema.pre('save', function(next) {
 });
 
 module.exports = mongoose.model("Customer", CustomerSchema);
-
-
-
