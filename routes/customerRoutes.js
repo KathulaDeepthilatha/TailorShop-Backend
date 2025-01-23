@@ -29,16 +29,6 @@ router.get("/customers/:id", async (req, res) => {
   }
 });
 
-// Add a new customer
-// router.post("/", async (req, res) => {
-//   try {
-//     const newCustomer = new Customer(req.body);
-//     await newCustomer.save();
-//     res.status(201).json({ message: "Customer created successfully", newCustomer });
-//   } catch (error) {
-//     res.status(500).json({ message: "Error creating customer", error });
-//   }
-// });
 
 router.post("/", async (req, res) => {
   try {
@@ -98,23 +88,6 @@ router.post("/", async (req, res) => {
     });
   }
 });
-
-// Update a customer
-// router.put("/customers/:id", async (req, res) => {
-//   try {
-//     const updatedCustomer = await Customer.findByIdAndUpdate(req.params.id, req.body, {
-//       new: true, // Return the updated document
-//       runValidators: true, // Validate before updating
-//     });
-//     if (!updatedCustomer) {
-//       return res.status(404).json({ message: "Customer not found" });
-//     }
-//     res.status(200).json({ message: "Customer updated successfully", updatedCustomer });
-//   } catch (error) {
-//     res.status(500).json({ message: "Error updating customer", error });
-//   }
-// });
-
 
 
 // Update customer with better validation

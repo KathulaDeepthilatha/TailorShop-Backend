@@ -10,8 +10,7 @@ const CustomerSchema = new mongoose.Schema({
     type: String, 
     required: [true, "Mobile number is required"],
     trim: true,
-    match: [/^[0-9]{10}$/, "Mobile number must be 10 digits"],
-    unique: true
+    match: [/^[0-9]{10}$/, "Mobile number must be 10 digits"]
   },
   measurements: {
     neck: { type: Number, default: 0, min: [0, 'Measurement cannot be negative'], max: [100, 'Invalid measurement'] },
