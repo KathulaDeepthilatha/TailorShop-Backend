@@ -16,15 +16,25 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Get a customer by ID
-router.get("/customers/:id", async (req, res) => {
+// ✅ Get a single customer by ID
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  console.log("Customer ID received:", id);
+
+  // Validate MongoDB ObjectId
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ message: "Invalid customer ID format" });
+  }
+
   try {
-    const customer = await Customer.findById(req.params.id);
+    const customer = await Customer.findById(id);
     if (!customer) {
       return res.status(404).json({ message: "Customer not found" });
     }
     res.status(200).json(customer);
   } catch (error) {
+    console.error("Error fetching customer:", error);
     res.status(500).json({ message: "Error fetching customer", error });
   }
 });
