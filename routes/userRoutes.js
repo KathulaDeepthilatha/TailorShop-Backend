@@ -11,34 +11,44 @@ const generateOtp = () => {
 router.post("/add-user", async (req, res) => {
   const { phone, pin } = req.body;
   try {
+    // Check if user already exists
+    const existingUser = await User.findOne({ phone });
+    if (existingUser) {
+      return res
+        .status(409)
+        .json({ message: "User with this phone number already exists" });
+    }
+
     const newUser = new User({ phone, pin });
     await newUser.save();
     res.status(201).json({ message: "User added successfully", newUser });
   } catch (error) {
-    res.status(500).json({ message: "Error adding user", error });
+    console.error("Error adding user:", error);
+    res.status(500).json({
+      message: "Error adding user",
+      error: error.message,
+    });
   }
 });
 
 // Login route
 router.post("/login", async (req, res) => {
-    const { phone, pin } = req.body;
-    console.log("Login attempt:", phone, pin);
-    try {
-      const user = await User.findOne({ phone });
-      console.log("User found:", user);
-      if (user && user.pin === pin) {
-        console.log("Login successful");
-        res.status(200).json({ message: "Login successful" });
-      } else {
-        console.log("Invalid phone number or PIN");
-        res.status(401).json({ message: "Invalid phone number or PIN" });
-      }
-    } catch (error) {
-      console.error("Error logging in:", error);
-      res.status(500).json({ message: "Error logging in", error });
+  const { phone, pin } = req.body;
+  try {
+    const user = await User.findOne({ phone });
+    console.log("User found:", user);
+    if (user && user.pin === pin) {
+      console.log("Login successful");
+      res.status(200).json({ message: "Login successful" });
+    } else {
+      console.log("Invalid phone number or PIN");
+      res.status(401).json({ message: "Invalid phone number or PIN" });
     }
-  });
-  
+  } catch (error) {
+    console.error("Error logging in:", error);
+    res.status(500).json({ message: "Error logging in", error });
+  }
+});
 
 // Send OTP for PIN change
 router.post("/send-otp", async (req, res) => {
