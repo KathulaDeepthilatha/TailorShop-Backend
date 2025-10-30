@@ -41,21 +41,21 @@ router.post("/login", async (req, res) => {
   
 
 // Send OTP for PIN change
-router.post("/send-otp", async (req, res) => {
-  const { phone } = req.body;
-  const otp = generateOtp();
-  try {
-    const user = await User.findOneAndUpdate({ phone }, { otp }, { new: true });
-    if (user) {
-      // Implement SMS sending logic here using an SMS gateway
-      res.status(200).json({ message: "OTP sent successfully" });
-    } else {
-      res.status(404).json({ message: "User not found" });
-    }
-  } catch (error) {
-    res.status(500).json({ message: "Error sending OTP", error });
-  }
-});
+// router.post("/send-otp", async (req, res) => {
+//   const { phone } = req.body;
+//   const otp = generateOtp();
+//   try {
+//     const user = await User.findOneAndUpdate({ phone }, { otp }, { new: true });
+//     if (user) {
+//       // Implement SMS sending logic here using an SMS gateway
+//       res.status(200).json({ message: "OTP sent successfully" });
+//     } else {
+//       res.status(404).json({ message: "User not found" });
+//     }
+//   } catch (error) {
+//     res.status(500).json({ message: "Error sending OTP", error });
+//   }
+// });
 
 // Verify OTP and change PIN
 router.post("/change-pin", async (req, res) => {
